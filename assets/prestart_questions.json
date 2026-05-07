@@ -1,0 +1,236 @@
+{
+  "title": "Mobile Equipment Pre-Start Inspection",
+  "sections": [
+    {
+      "name": "Before Starting Engine",
+      "description": "Inspect and fill out before starting engine"
+    },
+    {
+      "name": "After Starting Engine",
+      "description": "Inspect and fill out after starting engine"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "category": "Before Starting Engine",
+      "question": "Are tyres, rims, and wheel nuts in good condition (not damaged, loose, or peeling off rims)?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 2,
+      "category": "Before Starting Engine",
+      "question": "Are seat belts in good condition without damage?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 3,
+      "category": "Before Starting Engine",
+      "question": "Is the seat in good condition and properly adjusted?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 4,
+      "category": "Before Starting Engine",
+      "question": "Do all doors latch properly and handles work correctly?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 5,
+      "category": "Before Starting Engine",
+      "question": "Are windscreens and mirrors secure and clear?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 6,
+      "category": "Before Starting Engine",
+      "question": "Is there any visible damage to the vehicle or debris that needs clearing?",
+      "correctAnswer": "no",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 7,
+      "category": "Before Starting Engine",
+      "question": "Are oil and water levels adequate?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 8,
+      "category": "Before Starting Engine",
+      "question": "Are other applicable fluid levels adequate?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 9,
+      "category": "Before Starting Engine",
+      "question": "Are there any oil, water, or fluid leaks present?",
+      "correctAnswer": "no",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 10,
+      "category": "Before Starting Engine",
+      "question": "Are all fluid hoses secure?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 11,
+      "category": "Before Starting Engine",
+      "question": "Are safety guards (load and overhead) in place and secure?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 12,
+      "category": "Before Starting Engine",
+      "question": "Are all tools and loose objects properly secured?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 13,
+      "category": "Before Starting Engine",
+      "question": "Is auxiliary equipment (buckets, turntable, blade, etc.) secure and in good condition?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 14,
+      "category": "Before Starting Engine",
+      "question": "Is the fire extinguisher charged and accessible (if applicable)?",
+      "correctAnswer": "yes",
+      "required": false,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 15,
+      "category": "After Starting Engine",
+      "question": "Are all instruments, lights, and indicators (including flashing light) working properly?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 16,
+      "category": "After Starting Engine",
+      "question": "Do both foot and hand brakes work effectively?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 17,
+      "category": "After Starting Engine",
+      "question": "Does the steering respond correctly?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 18,
+      "category": "After Starting Engine",
+      "question": "Does the horn work properly?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 19,
+      "category": "After Starting Engine",
+      "question": "Does the reversing alarm function correctly?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 20,
+      "category": "After Starting Engine",
+      "question": "Do windscreen wipers and washers work properly?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 21,
+      "category": "After Starting Engine",
+      "question": "Is the air conditioner functioning properly?",
+      "correctAnswer": "yes",
+      "required": false,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 22,
+      "category": "After Starting Engine",
+      "question": "Is the two-way radio working?",
+      "correctAnswer": "yes",
+      "required": false,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 23,
+      "category": "After Starting Engine",
+      "question": "Is there any abnormal exhaust noise or engine noise?",
+      "correctAnswer": "no",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 24,
+      "category": "After Starting Engine",
+      "question": "Does the Murphy switch light and alarm work properly?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    },
+    {
+      "id": 25,
+      "category": "After Starting Engine",
+      "question": "Do all hydraulic controls (up/down, tilt, left/right, rotate) function correctly?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": true
+    },
+    {
+      "id": 26,
+      "category": "After Starting Engine",
+      "question": "Is the fuel level adequate (does it need refueling)?",
+      "correctAnswer": "yes",
+      "required": true,
+      "keySafetyFeature": false
+    }
+  ],
+  "metadata": {
+    "formNumber": "548189",
+    "version": "V2",
+    "lastUpdated": "17/08/15",
+    "documentId": "DMS 160000001040",
+    "keySafetyNote": "KEY SAFETY FEATURES - DO NOT OPERATE UNTIL SUPERVISOR NOTIFIED IF FAULT FOUND",
+    "actionsIfFault": [
+      "SAP Notification raised",
+      "Out of Service Tag attached",
+      "Mobile Maintenance Contacted",
+      "Taken to Mobile Maintenance"
+    ]
+  }
+}
