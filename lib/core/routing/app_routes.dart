@@ -5,4 +5,5 @@ class AppRoutes {
   static const String login = '/';
   static const String prestart = '/prestart';
   static const String welcome = '/welcome';
+  static const String noPower = '/no-power';
 }

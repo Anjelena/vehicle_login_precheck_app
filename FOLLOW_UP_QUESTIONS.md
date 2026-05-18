@@ -68,7 +68,31 @@ each section as they come up.
 
 ## After chunk 3 — welcome + power-loss
 
-- (to be added)
+- **"Sleep mode" depth.** Current behaviour after the 10 s countdown: clear the
+  session and route to the `/no-power` screen (black scaffold with an
+  "Ignition Off" message). The screen itself stays awake. To physically turn
+  the display off requires Device Admin / Accessibility Service / Device Owner
+  permissions — none of which the app currently has. Decide whether we need to
+  pursue one of those, or whether relying on the tablet's own display timeout
+  (set in Android Settings → Display) is good enough.
+- **Battery vs ignition distinction.** `battery_plus` reports
+  charging/discharging, which on a wired-into-vehicle setup tracks ignition
+  state — *only because* removing ignition kills the charger. If the tablet
+  ever has its own battery topped up and is unplugged from the vehicle for
+  other reasons (maintenance, transport), the app would treat that as
+  "ignition off". Confirm with the project lead that this is acceptable, or
+  add a separate ignition-signal pathway later.
+- **`unknown` battery state on cold boot.** `PowerMonitor` reads initial state
+  synchronously before `runApp`, but if the platform returns `unknown` it's
+  treated as on-power (optimistic). Confirm this is the right default — the
+  alternative is to refuse to enter the login flow until the state is
+  conclusively known.
+- **`PowerReceiver.kt` / `WakeForegroundService.kt` not ported.** The parent app's
+  Kotlin side had a foreground service plus broadcast receivers for power events.
+  We currently rely solely on Dart-side `battery_plus`. If kiosk-mode wake
+  behaviour gets flaky in production (e.g. Android killing the app to save
+  battery while ignition is off, then not resuming cleanly), revisit and bring
+  the Kotlin pieces across.
 
 ## After chunk 4 — rename & polish
 

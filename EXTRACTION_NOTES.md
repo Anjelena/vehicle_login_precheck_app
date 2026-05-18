@@ -66,9 +66,22 @@ lib/
     │           ├── empty_state.dart
     │           └── submit_check_fab.dart
     │
-    └── welcome/
+    ├── welcome/
+    │   └── presentation/
+    │       └── welcome_screen.dart            ← terminal screen (chunk 2: name + clock; chunk 3 enhances)
+    │
+    └── no_power/
         └── presentation/
-            └── welcome_screen.dart            ← terminal screen (chunk 2: name + clock; chunk 3 enhances)
+            └── no_power_screen.dart           ← chunk 3: "Ignition Off" terminal screen
+```
+
+And `lib/core/power/`:
+
+```
+core/power/
+├── power_monitor.dart            ← wraps battery_plus, exposes hasPower
+├── power_sleep_coordinator.dart  ← listens to PowerMonitor; 10s countdown on power-lost; logout + navigate on expiry
+└── power_shutdown_overlay.dart   ← fullscreen countdown overlay rendered in MaterialApp.builder
 ```
 
 > Each feature follows the same `data / domain / presentation` split. New features added in chunk 3 (`power`, etc.) will follow the same convention.
@@ -167,7 +180,34 @@ Requires an Android device/emulator. For the PCB path you'll need an OTG adapter
 
 ## Changelog
 
-### Chunk 2 — Prestart functionality + welcome placeholder + named-route navigation (current)
+### Chunk 3 — Power-loss detection + 10 s logout-and-sleep + UI polish (current)
+
+**Added:**
+- `lib/core/power/power_monitor.dart` — wraps `battery_plus` and exposes `hasPower: bool`. Treats `unknown` optimistically so cold boot doesn't trip the overlay before the first real state event.
+- `lib/core/power/power_sleep_coordinator.dart` — listens to `PowerMonitor`. On power-lost starts a 10 s `Timer.periodic` (so the overlay can show a live countdown). On power restored before expiry, cancels. On expiry: clears the session and navigates to `/no-power` via `GlobalKey<NavigatorState>`.
+- `lib/core/power/power_shutdown_overlay.dart` — fullscreen translucent overlay (88% black, warning icon, big countdown). Absorbs touches so the user can't interact with the underlying screen during shutdown. Rendered in `MaterialApp.builder` so it sits on top of every route.
+- `lib/features/no_power/presentation/no_power_screen.dart` — terminal "Ignition Off" screen. Listens to `PowerMonitor` and `pushNamedAndRemoveUntil` back to `/login` when power is restored.
+- `AppRoutes.noPower = '/no-power'`.
+- Boot-time route selection: `main()` reads the initial battery state synchronously and `App` picks `initialRoute = login` or `noPower` accordingly. So a cold boot with ignition already off lands directly on the no-power screen instead of briefly flashing login.
+- `battery_plus: ^5.0.3` to `pubspec.yaml`. No new Android permissions required.
+
+**Changed:**
+- `App` now needs a `GlobalKey<NavigatorState>` to navigate from the coordinator (which is a non-widget service). `App` became non-`const` because of the navigator key field.
+- `App.builder` wraps the navigator in a `Stack` so the overlay is always on top.
+
+**Done outside the codebase (by the user):**
+- Green border around the screen on RFID scan suppressed via a flag in `styles.xml`. Not committed here — the Android styles change lives in the manifest layer.
+
+**Testing the power-loss flow without physically unplugging:**
+```sh
+adb shell dumpsys battery unplug          # simulate "ignition off" → overlay should appear
+adb shell dumpsys battery set ac 1        # simulate "ignition on" → overlay should disappear
+adb shell dumpsys battery reset           # restore real behaviour
+```
+
+**Deferred to FOLLOW_UP_QUESTIONS.md:** depth of "sleep mode" (do we need to physically turn the screen off?), battery-vs-ignition distinction, behaviour on cold-boot `unknown` state, whether to also port the parent's `PowerReceiver.kt` / `WakeForegroundService.kt`.
+
+### Chunk 2 — Prestart functionality + welcome placeholder + named-route navigation
 
 **Added:**
 - `lib/features/prestart/` — full feature folder (data, domain, presentation + widgets) ported from `vis_tac_app/lib/blocs/prestart_manager.dart`, `screens/prestart_check/`, `widgets/prestart_widgets.dart`. Stripped of all parent-app glue: no camera icons, no HMI bloc back-button, no state-machine references, no MQTT publish, no time-logger.
@@ -248,8 +288,8 @@ Files we **deliberately did not** copy from the parent app and never will (still
 | 1   | Strip MQTT, restructure to feature folders, add SQLite-backed `AuthRepository` | ✅ Done |
 | 1.5 | USB-CDC support (auto-connect to PCB by VID), parallel keyboard fallback, schema reshaped around `card_no INTEGER` | ✅ Done |
 | 2   | Port prestart functionality. Define `PrestartRepository` interface; questions & submitted answers stored in SQLite (audit log). Welcome screen placeholder + named-route flow. | ✅ Done |
-| 3   | Welcome screen power-loss detection + 10 s logout-and-sleep timer. UI polish ("no green border" tweak). Reconsider Kotlin/manifest items for tablet auto-power-on. | Next |
-| 4   | Project rename (e.g. `vehicle_login_app`). Decide final treatment of audit-log table. Final review of redundant Kotlin packages. | Pending |
+| 3   | Power-loss detection + 10 s logout-and-sleep + no-power screen. (Green-border tweak handled in `styles.xml` outside this repo.) | ✅ Done |
+| 4   | Project rename (e.g. `vehicle_login_app`). Decide final treatment of audit-log table. Final review of redundant Kotlin packages. | Next |
 
 For decisions deferred until after chunk 4, see [FOLLOW_UP_QUESTIONS.md](FOLLOW_UP_QUESTIONS.md).
 
